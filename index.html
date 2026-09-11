@@ -32,6 +32,10 @@
     --warn-bg:   rgba(234,179,8,0.14);
     --grid:      rgba(255,255,255,0.06);
     --r:         0.75rem;
+    /* margem de seguranca contra o overscan da TV (a TV amplia a imagem e
+       corta uma faixa de cada borda). Ajustavel pelo endereco: ?safe=0 a 10  */
+    --safe-x:    4vw;
+    --safe-y:    4vh;
     --font-ui:   "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   }
 
@@ -53,7 +57,8 @@
     -webkit-font-smoothing: antialiased;
   }
   .board {
-    height: 100%; padding: 1.1rem 1.4rem 1.2rem;
+    height: 100%;
+    padding: calc(0.5rem + var(--safe-y)) calc(0.55rem + var(--safe-x)) calc(0.6rem + var(--safe-y));
     display: grid; grid-template-rows: auto minmax(0, 1fr); gap: 0.9rem;
   }
 
@@ -161,7 +166,8 @@
   .kpi .label {
     font-family: var(--font-ui); font-size: 0.66rem;
     letter-spacing: .13em; text-transform: uppercase; color: var(--ink-3);
-    line-height: 1.2; min-height: 1.6em;
+    line-height: 1.2; min-height: 2.4em;   /* duas linhas: mantem os 4 valores alinhados */
+    display: flex; align-items: flex-end;
   }
   .kpi .value {
     font-family: var(--font-ui); font-weight: 700; font-size: 2.15rem;
@@ -282,7 +288,7 @@
 
   /* aviso de dados ausentes */
   #alerta {
-    position: fixed; inset: auto 1.4rem 1.1rem auto;
+    position: fixed; right: calc(0.55rem + var(--safe-x)); bottom: calc(0.5rem + var(--safe-y));
     background: var(--card); border: 1px solid var(--neg); color: var(--ink);
     border-radius: .6rem; padding: .6rem .9rem; font-size: .85rem; max-width: 34rem;
     box-shadow: 0 .6rem 2rem rgba(0,0,0,.5);
@@ -401,6 +407,22 @@ window.__COCKPIT_INIT = function () {
   const slug = s => String(s || "").toLowerCase()
     .normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z]/g, "");
   const cap = s => { const t = String(s || "").toLowerCase(); return t.charAt(0).toUpperCase() + t.slice(1); };
+
+  /* ---------------- margem de seguranca da TV ----------------
+     Toda TV corta um pedaco das bordas (overscan). O padrao de 3% resolve a
+     maioria; para ajustar, acrescente ?safe=N ao endereco (N de 0 a 10).
+     Ex.: ...github.io/indicador-cockpit/?safe=5  (corta muito)
+          ...github.io/indicador-cockpit/?safe=0  (TV sem overscan)         */
+  (function () {
+    try {
+      const q = new URLSearchParams(location.search);
+      if (!q.has("safe")) return;
+      const n = parseFloat(String(q.get("safe")).replace(",", "."));
+      if (!isFinite(n) || n < 0 || n > 10) return;
+      document.documentElement.style.setProperty("--safe-x", n + "vw");
+      document.documentElement.style.setProperty("--safe-y", n + "vh");
+    } catch (e) { /* endereco sem parametros: fica no padrao */ }
+  })();
 
   /* ---------------- dados ---------------- */
   const D = window.COCKPIT;
