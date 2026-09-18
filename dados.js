@@ -1,6 +1,6 @@
 /* gerado automaticamente a partir do PowerPoint - nao editar a mao */
 window.COCKPIT = {
-  atualizado: "17/09/2026 10:28",
+  atualizado: "18/09/2026 10:00",
   arquivo: "B2B_RESA_Indicadores_Pipeline_14.09.26_v3.pptx",
   semana: "14/09/2026",
   titulo: "Cockpit Comercial da Semana",
