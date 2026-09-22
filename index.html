@@ -32,11 +32,11 @@
     --warn-bg:   rgba(234,179,8,0.14);
     --grid:      rgba(255,255,255,0.06);
     --r:         0.75rem;
+    --font-ui:   "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
     /* margem de seguranca contra o overscan da TV (a TV amplia a imagem e
        corta uma faixa de cada borda). Ajustavel pelo endereco: ?safe=0 a 10  */
     --safe-x:    3vw;
     --safe-y:    3vh;
-    --font-ui:   "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   }
 
   * { box-sizing: border-box; }
@@ -65,7 +65,7 @@
   /* ---------------- topo ---------------- */
   .top {
     display: flex; align-items: flex-end; justify-content: space-between;
-    gap: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--line);
+    gap: 1.5rem; padding-bottom: 0.7rem; border-bottom: 1px solid var(--line);
   }
   .brand { display: flex; align-items: center; gap: 0.85rem; min-width: 0; }
   .idt { display: flex; flex-direction: column; gap: .2rem; min-width: 0; }
@@ -111,21 +111,19 @@
   @media (prefers-reduced-motion: reduce) { .pulse { animation: none; } }
 
   /* ---------------- tela dividida ---------------- */
-  .split {
-    display: grid; grid-template-columns: 1.22fr 1fr; gap: 1.1rem; min-height: 0;
-  }
-  .lado { display: grid; min-height: 0; gap: 0.8rem; }
-  .lado.esq { grid-template-rows: auto 1.06fr 1fr; }
+  .split { display: grid; grid-template-columns: 1.18fr 1fr; gap: 1rem; min-height: 0; }
+  .lado { display: grid; min-height: 0; gap: 0.7rem; }
+  .lado.esq { grid-template-rows: auto auto 1.3fr 1fr auto; }
   .lado.dir { grid-template-rows: minmax(0, 1fr); position: relative; }
   .lado.dir::before {
-    content: ""; position: absolute; left: -0.55rem; top: .2rem; bottom: .2rem;
+    content: ""; position: absolute; left: -0.5rem; top: .2rem; bottom: .2rem;
     width: 1px; background: var(--line);
   }
 
   .panel {
     background: var(--card); border: 1px solid var(--line); border-radius: var(--r);
-    padding: 0.85rem 1rem 0.9rem; min-height: 0;
-    display: flex; flex-direction: column; gap: 0.6rem;
+    padding: 0.8rem 1rem 0.85rem; min-height: 0;
+    display: flex; flex-direction: column; gap: 0.55rem;
   }
   .phead { display: flex; align-items: baseline; justify-content: space-between; gap: .8rem; flex-wrap: wrap; }
   .panel h2 {
@@ -136,65 +134,55 @@
     font-family: var(--font-ui); font-size: 0.82rem;
     letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3);
   }
-  .legend { display: flex; gap: .8rem; }
-  .legend span {
-    display: inline-flex; align-items: center; gap: .35rem;
-    font-family: var(--font-ui); font-size: 0.86rem; color: var(--ink-2);
-  }
   .dot { width: .62rem; height: .62rem; border-radius: 2px; display: inline-block; flex: none; }
-  .dot.linha { width: .8rem; height: 0; border-top: 2px dashed var(--meta); border-radius: 0; }
-
-  .plot { flex: 1 1 auto; min-height: 0; position: relative; }
-  .plot svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-  .ax { font-family: var(--font-ui); fill: var(--ink-3); }
-  .barlab { font-family: var(--font-ui); font-weight: 700; fill: var(--ink); }
-  .foot-note { font-size: 0.95rem; color: var(--ink-3); line-height: 1.35; }
+  .foot-note { font-size: 0.92rem; color: var(--ink-3); line-height: 1.35; }
   .foot-note strong { color: var(--ink); }
 
-  /* ---------------- KPIs ---------------- */
-  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.7rem; }
+  /* ---------------- indicadores ---------------- */
+  .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.7rem; }
   .kpi {
     background: var(--card); border: 1px solid var(--line); border-radius: var(--r);
-    padding: 0.7rem 0.85rem 0.75rem; position: relative; overflow: hidden;
+    padding: 0.7rem 0.9rem 0.75rem; position: relative; overflow: hidden;
     display: flex; flex-direction: column; justify-content: center;
   }
   .kpi::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 3px; background: var(--line); }
   .kpi.a::before { background: var(--accent); }
-  .kpi.b::before { background: var(--exp); }
-  .kpi.c::before { background: var(--meta); }
-  .kpi.d::before { background: var(--ink-2); }
+  .kpi.b::before { background: var(--meta); }
+  .kpi.c::before { background: var(--exp); }
   .kpi .label {
-    font-family: var(--font-ui); font-size: 0.66rem;
+    font-family: var(--font-ui); font-size: 0.68rem;
     letter-spacing: .13em; text-transform: uppercase; color: var(--ink-3);
-    line-height: 1.2; min-height: 2.4em;   /* duas linhas: mantem os 4 valores alinhados */
-    display: flex; align-items: flex-end;
+    line-height: 1.2; min-height: 1.3em; display: flex; align-items: flex-end;
   }
   .kpi .value {
-    font-family: var(--font-ui); font-weight: 700; font-size: 2.15rem;
+    font-family: var(--font-ui); font-weight: 700; font-size: 2.3rem;
     letter-spacing: -.03em; font-variant-numeric: tabular-nums;
-    line-height: 1.08; margin-top: .15rem; white-space: nowrap;
+    line-height: 1.08; margin-top: .12rem; white-space: nowrap;
   }
-  .kpi .foot {
-    font-size: 0.8rem; color: var(--ink-3); margin-top: .2rem;
-    display: flex; align-items: center; gap: .45rem; flex-wrap: wrap;
+  .kpi .qtd { font-size: 0.9rem; color: var(--ink-2); margin-top: .1rem; }
+  .kpi .nota { font-size: 0.76rem; color: var(--ink-3); margin-top: .12rem; line-height: 1.3; }
+
+  /* ---------------- faixa da taxa de conversao ---------------- */
+  .conv {
+    display: flex; align-items: center; gap: .9rem;
+    background: var(--card); border: 1px solid var(--line);
+    border-left: 3px solid var(--pos); border-radius: var(--r);
+    padding: .5rem .9rem .55rem;
   }
-  .chip {
-    display: inline-flex; align-items: center; gap: .25rem;
-    font-family: var(--font-ui); font-size: 0.76rem; font-weight: 600;
-    padding: .1rem .5rem; border-radius: 999px; font-variant-numeric: tabular-nums;
+  .conv b {
+    font-family: var(--font-ui); font-weight: 800; font-size: 1.9rem;
+    letter-spacing: -.03em; color: var(--pos); line-height: 1; flex: none;
   }
-  .chip.up { color: var(--pos); background: var(--pos-bg); }
-  .chip.down { color: var(--neg); background: var(--neg-bg); }
-  .chip.hide { display: none; }
+  .conv span { font-size: 0.95rem; color: var(--ink-2); line-height: 1.3; }
 
   /* ---------------- funil de fases ---------------- */
-  .funil { display: flex; flex-direction: column; gap: .45rem; flex: 1 1 auto; justify-content: space-evenly; min-height: 0; }
+  .funil { display: flex; flex-direction: column; gap: .3rem; flex: 1 1 auto; justify-content: space-evenly; min-height: 0; }
   .fase {
-    display: grid; grid-template-columns: 8.2rem minmax(0, 1fr) auto;
+    display: grid; grid-template-columns: 7.6rem minmax(0, 1fr) auto;
     gap: 0 .7rem; align-items: center;
   }
-  .fase-n { font-size: 1.02rem; color: var(--ink-2); white-space: nowrap; }
-  .fase-track { height: 1.5rem; border-radius: .3rem; background: var(--line-soft); overflow: hidden; position: relative; }
+  .fase-n { font-size: 1rem; color: var(--ink-2); white-space: nowrap; }
+  .fase-track { height: 1.4rem; border-radius: .3rem; background: var(--line-soft); overflow: hidden; position: relative; }
   .fase-track i {
     display: block; height: 100%; border-radius: .3rem;
     background: linear-gradient(90deg, var(--accent), #6aa0ff);
@@ -202,83 +190,107 @@
   .fase-track b {
     position: absolute; left: .5rem; top: 0; height: 100%;
     display: flex; align-items: center;
-    font-family: var(--font-ui); font-weight: 700; font-size: 1rem; color: #fff;
+    font-family: var(--font-ui); font-weight: 700; font-size: .98rem; color: #fff;
     text-shadow: 0 1px 2px rgba(0,0,0,.5);
   }
   .fase-cv {
-    font-family: var(--font-ui); font-size: 0.88rem; font-weight: 600;
-    color: var(--ink-3); min-width: 3.6rem; text-align: right; white-space: nowrap;
+    font-family: var(--font-ui); font-size: 0.86rem; font-weight: 600;
+    color: var(--ink-3); min-width: 3.4rem; text-align: right; white-space: nowrap;
   }
 
-  /* ---------------- clientes em negociacao ---------------- */
-  .total-neg {
-    display: flex; align-items: baseline; gap: .7rem; flex-wrap: wrap;
-    padding: .5rem .8rem; border-radius: .55rem;
-    background: var(--card-2); border: 1px solid var(--line-soft);
+  /* ---------------- novas prospeccoes ---------------- */
+  .prospec { display: flex; flex-direction: column; gap: .5rem; flex: 1 1 auto; min-height: 0; }
+  .prospec-item {
+    display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0 .6rem; align-items: center;
+    flex: 1 1 0; min-height: 0; padding: .45rem .7rem; background: var(--card-2);
+    border: 1px solid var(--line-soft); border-left: 2px solid var(--accent); border-radius: .5rem;
   }
-  .total-neg b {
-    font-family: var(--font-ui); font-weight: 700; font-size: 2rem;
-    letter-spacing: -.03em; font-variant-numeric: tabular-nums; line-height: 1;
+  .prospec-item i {
+    width: .45rem; height: .45rem; border-radius: 50%; background: var(--accent);
+    flex: none;
   }
-  .total-neg span { font-size: 0.92rem; color: var(--ink-3); }
+  .prospec-item p { margin: 0; font-size: 0.98rem; line-height: 1.35; color: var(--ink-2); }
+  .prospec-item p b { color: var(--ink); font-weight: 700; }
 
-  .cards { display: flex; flex-direction: column; gap: .5rem; flex: 1 1 auto; min-height: 0; }
-  .cli-card {
-    display: grid; grid-template-columns: auto minmax(0, 1fr) auto;
-    grid-template-rows: auto auto auto; gap: .28rem .8rem;
-    align-items: center; align-content: center; flex: 1 1 0; min-height: 0;
-    padding: .5rem .75rem; background: var(--card-2);
-    border: 1px solid var(--line-soft); border-radius: .6rem;
-    border-left: 3px solid var(--accent);
+  /* ---------------- negocio perdido ---------------- */
+  .perdido {
+    display: flex; align-items: center; gap: .6rem;
+    background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.28);
+    border-radius: .55rem; padding: .4rem .75rem;
+    font-size: 0.9rem; color: var(--ink-2); line-height: 1.3;
   }
-  .cli-card.fechamento { border-left-color: var(--exp); }
-  .cli-card.negociacao { border-left-color: var(--accent); }
-  .cli-card.proposta   { border-left-color: var(--meta); }
-  .sigla {
-    grid-column: 1; grid-row: 1 / 4; width: 2.9rem; height: 2.9rem; border-radius: .5rem;
-    background: rgba(255,255,255,.06); border: 1px solid var(--line);
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--font-ui); font-weight: 800; font-size: 0.95rem;
-    letter-spacing: -.02em; color: var(--ink); flex: none;
+  .perdido b {
+    font-family: var(--font-ui); font-size: 0.7rem; font-weight: 800;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--neg);
+    white-space: nowrap; flex: none;
   }
-  .cli-top { grid-column: 2; grid-row: 1; display: flex; align-items: center; gap: .5rem; min-width: 0; }
-  .cli-nome {
-    font-size: 1.18rem; font-weight: 600; white-space: nowrap;
+
+  /* ---------------- contas (lado direito) ---------------- */
+  .grupos { display: flex; flex-direction: column; gap: .6rem; flex: 1 1 auto; min-height: 0; }
+  .grupo { display: flex; flex-direction: column; min-height: 0; }
+  .g-cab {
+    display: grid; grid-template-columns: auto 1fr auto; gap: 0 .55rem;
+    align-items: baseline; padding-bottom: .2rem; margin-bottom: .3rem;
+    border-bottom: 1px solid var(--line-strong);
+  }
+  .g-nome {
+    font-family: var(--font-ui); font-size: .84rem; font-weight: 700;
+    letter-spacing: .12em; text-transform: uppercase;
+    display: inline-flex; align-items: center; gap: .35rem;
+  }
+  .g-qtd { font-family: var(--font-ui); font-size: .8rem; font-weight: 600; color: var(--ink-3); }
+  .g-tot {
+    font-family: var(--font-ui); font-size: 1.08rem; font-weight: 700;
+    font-variant-numeric: tabular-nums; white-space: nowrap; text-align: right;
+  }
+
+  .conta {
+    display: grid; grid-template-columns: minmax(0, 1fr) auto;
+    gap: .05rem .7rem; align-content: center;
+    flex: 1 1 0; min-height: 0; padding: .1rem 0;
+  }
+  .c-top { display: flex; align-items: baseline; gap: .45rem; min-width: 0; }
+  .c-nome {
+    font-size: 1.06rem; font-weight: 600; white-space: nowrap;
     overflow: hidden; text-overflow: ellipsis;
   }
   .pill {
-    font-family: var(--font-ui); font-size: 0.66rem; font-weight: 700;
-    letter-spacing: .1em; text-transform: uppercase;
-    padding: .1rem .45rem; border-radius: 999px; flex: none;
+    font-family: var(--font-ui); font-size: 0.62rem; font-weight: 700;
+    letter-spacing: .09em; text-transform: uppercase;
+    padding: .06rem .4rem; border-radius: 999px; flex: none; white-space: nowrap;
   }
-  .pill.fechamento { color: var(--pos); background: var(--pos-bg); }
-  .pill.negociacao { color: var(--accent); background: rgba(67,127,239,.16); }
-  .pill.proposta   { color: var(--meta); background: rgba(241,134,10,.16); }
-  .cli-val {
-    grid-column: 3; grid-row: 1 / 3; align-self: center; text-align: right; white-space: nowrap;
-    font-family: var(--font-ui); font-weight: 700; font-size: 1.3rem;
+  .c-val {
+    grid-column: 2; grid-row: 1; text-align: right; white-space: nowrap;
+    font-family: var(--font-ui); font-weight: 700; font-size: 1.12rem;
     letter-spacing: -.02em; font-variant-numeric: tabular-nums;
   }
-  .cli-val small {
-    display: block; font-family: var(--font-ui); font-weight: 500;
-    font-size: 0.72rem; color: var(--ink-3); letter-spacing: .04em; margin-top: .1rem;
-  }
-  .cli-acao {
-    grid-column: 2; grid-row: 2; font-size: 0.92rem; color: var(--ink-2); line-height: 1.25;
+  .c-acao {
+    grid-column: 1; grid-row: 2; font-size: 0.88rem; color: var(--ink-2); line-height: 1.3;
     display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
   }
-  .cli-acao em { font-style: normal; color: var(--ink-3); }
-  .cli-peso {
-    grid-column: 2 / 4; grid-row: 3;
-    display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0 .6rem; align-items: center;
+  .c-meta {
+    grid-column: 2; grid-row: 2; text-align: right; white-space: nowrap;
+    font-family: var(--font-ui); font-size: 0.76rem; color: var(--ink-3);
   }
-  .cli-peso .b { height: .34rem; border-radius: .2rem; background: var(--line-soft); overflow: hidden; }
-  .cli-peso .b i { display: block; height: 100%; border-radius: .2rem; background: var(--accent); }
-  .cli-card.fechamento .cli-peso .b i { background: var(--exp); }
-  .cli-card.proposta   .cli-peso .b i { background: var(--meta); }
-  .cli-peso .p {
-    font-family: var(--font-ui); font-size: 0.78rem; font-weight: 600; color: var(--ink-3);
-    font-variant-numeric: tabular-nums; white-space: nowrap; min-width: 5.6rem; text-align: right;
+  /* muitas contas: a proxima acao encolhe para nao cortar no meio da linha */
+  .grupos.denso .c-acao { -webkit-line-clamp: 1; }
+  .grupos.denso .c-nome { font-size: 1rem; }
+  .grupos.denso .c-val  { font-size: 1.04rem; }
+  .grupos.muito-denso .c-acao { -webkit-line-clamp: 1; font-size: 0.82rem; }
+  .grupos.muito-denso .c-nome { font-size: 0.94rem; }
+  .grupos.muito-denso .c-val  { font-size: 0.98rem; }
+  .grupos.muito-denso .c-meta { font-size: 0.7rem; }
+  .grupos.muito-denso .pill   { font-size: 0.56rem; }
+
+  .g-rodape {
+    display: flex; align-items: baseline; justify-content: space-between; gap: .6rem;
+    padding: .45rem .8rem; margin-top: .1rem;
+    background: var(--card-2); border: 1px solid var(--line-soft); border-radius: .55rem;
+  }
+  .g-rodape span { font-size: 0.92rem; color: var(--ink-3); }
+  .g-rodape b {
+    font-family: var(--font-ui); font-weight: 700; font-size: 1.5rem;
+    letter-spacing: -.03em; font-variant-numeric: tabular-nums;
   }
 
   .empty {
@@ -298,9 +310,8 @@
 
   /* telas verticais / quadradas: empilha os dois lados */
   @media (max-aspect-ratio: 1/1) {
-    .split { grid-template-columns: 1fr; grid-template-rows: 1.25fr 1fr; }
+    .split { grid-template-columns: 1fr; grid-template-rows: 1.2fr 1fr; }
     .lado.dir::before { display: none; }
-    .kpis { grid-template-columns: repeat(2, 1fr); }
   }
 </style>
 </head>
@@ -325,7 +336,7 @@
       </div>
       <div>
         <div class="k">Base do PowerPoint</div>
-        <div class="v arq" id="s-arq" style="font-size:1rem">—</div>
+        <div class="v" id="s-arq" style="font-size:1rem">—</div>
       </div>
       <div>
         <div class="k">Semana</div>
@@ -338,13 +349,8 @@
     <div class="lado esq">
       <div class="kpis" id="kpis"></div>
 
-      <div class="panel">
-        <div class="phead">
-          <h2 id="t-receita">Receita realizada x meta</h2>
-          <div class="legend" id="leg-receita"></div>
-        </div>
-        <div class="plot" id="plot-receita"></div>
-        <div class="foot-note" id="nota-receita"></div>
+      <div class="conv" id="conv" hidden>
+        <b id="conv-v"></b><span id="conv-t"></span>
       </div>
 
       <div class="panel">
@@ -355,20 +361,30 @@
         <div class="funil" id="funil"></div>
         <div class="foot-note" id="nota-fases"></div>
       </div>
+
+      <div class="panel">
+        <div class="phead">
+          <h2 id="t-prospec">Novas prospecções</h2>
+          <span class="sub" id="sub-prospec"></span>
+        </div>
+        <div class="prospec" id="prospec"></div>
+      </div>
+
+      <div class="perdido" id="perdido" hidden>
+        <b>Negócio perdido</b><span id="perdido-t"></span>
+      </div>
     </div>
 
     <div class="lado dir">
       <div class="panel">
         <div class="phead">
-          <h2 id="t-clientes">Principais clientes em negociação</h2>
+          <h2 id="t-clientes">Principais clientes</h2>
           <span class="sub" id="sub-clientes"></span>
         </div>
-        <div class="total-neg">
-          <b id="neg-total">—</b>
-          <span id="neg-label"></span>
+        <div class="grupos" id="grupos"></div>
+        <div class="g-rodape" id="rodape" hidden>
+          <span id="rod-l"></span><b id="rod-v"></b>
         </div>
-        <div class="cards" id="cards"></div>
-        <div class="foot-note" id="nota-clientes"></div>
       </div>
     </div>
   </div>
@@ -393,26 +409,24 @@ window.__COCKPIT_INIT = function () {
 
   /* ---------------- utilitarios ---------------- */
   const br = (n, d) => n.toLocaleString("pt-BR", { minimumFractionDigits: d, maximumFractionDigits: d });
-  const mi = n => br(n, Math.abs(n) >= 10 ? 1 : 1) + " M";
   const pct = (n, d) => br(n * 100, d === undefined ? 0 : d) + "%";
   const soma = a => a.reduce((x, y) => x + y, 0);
-  const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
-  const rem = () => parseFloat(getComputedStyle(document.documentElement).fontSize);
   const el = id => document.getElementById(id);
   const txt = (id, v) => { const e = el(id); if (e) e.textContent = v; };
   const html = (id, v) => { const e = el(id); if (e) e.innerHTML = v; };
   const esc = s => String(s == null ? "" : s)
     .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-  /* "FECHAMENTO" -> "fechamento" (sem acento), para virar classe css */
+  /* "FECHADO / INICIADO" -> "fechadoiniciado" (sem acento), para virar classe */
   const slug = s => String(s || "").toLowerCase()
     .normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z]/g, "");
-  const cap = s => { const t = String(s || "").toLowerCase(); return t.charAt(0).toUpperCase() + t.slice(1); };
+  const cap = s => {
+    const t = String(s || "").toLowerCase();
+    return t.charAt(0).toUpperCase() + t.slice(1);
+  };
 
   /* ---------------- margem de seguranca da TV ----------------
      Toda TV corta um pedaco das bordas (overscan). O padrao de 3% resolve a
-     maioria; para ajustar, acrescente ?safe=N ao endereco (N de 0 a 10).
-     Ex.: ...github.io/indicador-cockpit/?safe=5  (corta muito)
-          ...github.io/indicador-cockpit/?safe=0  (TV sem overscan)         */
+     maioria; para ajustar, acrescente ?safe=N ao endereco (N de 0 a 10).    */
   (function () {
     try {
       const q = new URLSearchParams(location.search);
@@ -436,30 +450,31 @@ window.__COCKPIT_INIT = function () {
 
   /* ---------------- topo ---------------- */
   if (D.titulo) txt("t-titulo", D.titulo.replace(/\s+da\s+Semana\s*$/i, ""));
-  txt("t-sub", D.subtitulo || "Oportunidades, pipeline por fase e receita vs. meta");
+  txt("t-sub", D.subtitulo || "Oportunidades, pipeline por fase e contas em negociação");
   txt("s-sync", D.atualizado || "—");
   txt("s-arq", D.arquivo || "—");
   txt("s-semana", D.semana || "—");
 
-  /* ---------------- KPIs (texto vindo do PowerPoint) ---------------- */
+  /* ---------------- indicadores ---------------- */
   (function () {
-    const classes = ["a", "b", "c", "d"];
-    el("kpis").innerHTML = (D.kpis || []).slice(0, 4).map((k, i) => {
-      /* nota do tipo "+4 vs. semana anterior" ganha cor de variacao */
-      const nota = String(k.nota || "");
-      const m = nota.match(/^([+\-−])\s*([\d.,]+)\s*(.*)$/);
-      let pe = esc(nota);
-      if (m) {
-        const up = m[1] === "+";
-        pe = '<span class="chip ' + (up ? "up" : "down") + '">' + (up ? "▲ +" : "▼ −") + esc(m[2]) + "</span>" +
-             (m[3] ? ' <span>' + esc(m[3]) + "</span>" : "");
-      }
-      return '<div class="kpi ' + classes[i] + '">' +
+    const classes = ["a", "b", "c", "a"];
+    const K = D.kpis || [];
+    el("kpis").style.gridTemplateColumns = "repeat(" + Math.max(K.length, 1) + ", 1fr)";
+    el("kpis").innerHTML = K.map((k, i) =>
+      '<div class="kpi ' + classes[i % classes.length] + '">' +
         '<div class="label">' + esc(k.rotulo) + "</div>" +
         '<div class="value">' + esc(k.valor) + "</div>" +
-        '<div class="foot">' + pe + "</div>" +
-      "</div>";
-    }).join("");
+        (k.qtd  ? '<div class="qtd">'  + esc(k.qtd)  + "</div>" : "") +
+        (k.nota ? '<div class="nota">' + esc(k.nota) + "</div>" : "") +
+      "</div>").join("");
+  })();
+
+  /* ---------------- faixa da taxa de conversao ---------------- */
+  (function () {
+    if (!D.conversaoTexto && !D.conversaoValor) return;
+    el("conv").hidden = false;
+    txt("conv-v", D.conversaoValor || "");
+    txt("conv-t", D.conversaoTexto || "");
   })();
 
   /* ---------------- funil de fases ---------------- */
@@ -490,181 +505,96 @@ window.__COCKPIT_INIT = function () {
     const ini = F.vals[0] || 0, fim = F.vals[F.vals.length - 1] || 0;
     html("nota-fases",
       "Do topo ao fechamento: <strong>" + br(ini, 0) + " → " + br(fim, 0) + "</strong> " +
-      "(<strong>" + pct(ini ? fim / ini : 0, 1) + "</strong> de conversão fim a fim). " +
+      "(<strong>" + pct(ini ? fim / ini : 0, 1) + "</strong> fim a fim). " +
       '<span style="opacity:.75">À direita de cada fase, a conversão vinda da fase anterior.</span>');
   })();
 
-  /* ---------------- receita realizada x meta ---------------- */
-  const R = D.receita;
-
-  function grafReceita() {
-    const host = el("plot-receita");
-    if (!host) return;
-    if (!R || !R.meses || !R.meses.length) {
-      host.innerHTML = "";
-      html("nota-receita", '<div class="empty">O slide não trouxe o gráfico de receita x meta.</div>');
+  /* ---------------- novas prospeccoes ---------------- */
+  (function () {
+    const P = D.prospeccoes || [];
+    if (D.tituloProspec) txt("t-prospec", D.tituloProspec);
+    txt("sub-prospec", P.length ? P.length + (P.length === 1 ? " conta" : " frentes") : "");
+    if (!P.length) {
+      html("prospec", '<div class="empty">O slide não trouxe novas prospecções nesta semana.</div>');
       return;
     }
-    const W = host.clientWidth, H = host.clientHeight;
-    if (!W || !H) return;
-    const u = rem();
-    const n = R.meses.length;
-    const pad = { t: u * 2.2, r: u * 0.8, b: u * 2.9, l: u * 3.2 };
-    const iw = Math.max(W - pad.l - pad.r, 10), ih = Math.max(H - pad.t - pad.b, 10);
-
-    const totais = R.total && R.total.length ? R.total
-                 : R.meses.map((_, i) => soma((R.barras || []).map(b => b.vals[i] || 0)));
-    const metas = R.meta || [];
-    const maxReal = Math.max.apply(null, totais.concat(metas));
-
-    /* escala com passos redondos */
-    const escala = (mx, divs) => {
-      const bruto = mx * 1.12 / divs;
-      if (!(bruto > 0)) return divs;
-      const mag = Math.pow(10, Math.floor(Math.log10(bruto)));
-      const passo = [1, 2, 2.5, 4, 5, 10].map(x => x * mag).find(c => c >= bruto) || 10 * mag;
-      return passo * divs;
-    };
-    const max = escala(maxReal, 4);
-    const step = iw / n;
-    const bw = Math.min(u * 2.6, step * 0.52);
-    const y = v => pad.t + ih - (v / max) * ih;
-    const fsAx  = Math.min(u * 0.8, step * 0.30).toFixed(1);
-    const fsLab = Math.min(u * 1.0, step * 0.32).toFixed(1);
-    const cores = ["--accent", "--meta", "--exp", "--hist"];
-    let g = "";
-
-    for (let i = 0; i <= 4; i++) {
-      const v = max / 4 * i, yy = y(v);
-      g += '<line x1="' + pad.l + '" x2="' + (W - pad.r) + '" y1="' + yy + '" y2="' + yy +
-           '" stroke="' + css("--grid") + '" stroke-width="1"/>';
-      g += '<text class="ax" font-size="' + fsAx + '" x="' + (pad.l - u * 0.4) + '" y="' + (yy + u * 0.25) +
-           '" text-anchor="end">' + (v ? br(v, v % 1 ? 1 : 0) : "0") + "</text>";
-    }
-
-    /* barras empilhadas */
-    R.meses.forEach((mes, i) => {
-      const cx = pad.l + step * i + step / 2;
-      let acc = 0;
-      (R.barras || []).forEach((serie, s) => {
-        const v = serie.vals[i] || 0;
-        if (!(v > 0)) return;
-        const h = (v / max) * ih;
-        const yy = pad.t + ih - acc - h;
-        g += '<rect x="' + (cx - bw / 2) + '" y="' + yy + '" width="' + bw + '" height="' + Math.max(h, 1) +
-             '" fill="' + css(cores[s % cores.length]) + '" rx="1.5"/>';
-        acc += h;
-      });
-      const tot = totais[i] || 0;
-      if (tot > 0) {
-        g += '<text class="barlab" font-size="' + fsLab + '" x="' + cx + '" y="' + (pad.t + ih - acc - u * 0.4) +
-             '" text-anchor="middle">' + br(tot, 1) + "</text>";
-      }
-      g += '<text class="ax" font-size="' + fsAx + '" x="' + cx + '" y="' + (pad.t + ih + u * 1.05) +
-           '" text-anchor="middle">' + esc(mes) + "</text>";
-      /* % da meta */
-      if (metas[i]) {
-        const at = tot / metas[i];
-        g += '<text font-size="' + fsAx + '" font-weight="700" x="' + cx + '" y="' + (pad.t + ih + u * 2.15) +
-             '" text-anchor="middle" fill="' + css(at >= 1 ? "--pos" : (at >= 0.9 ? "--warn" : "--neg")) + '">' +
-             pct(at) + "</text>";
-      }
-    });
-
-    /* linha da meta */
-    if (metas.length) {
-      const pts = metas.map((v, i) => [pad.l + step * i + step / 2, y(v)]);
-      g += '<path d="' + pts.map((p, i) => (i ? "L" : "M") + p[0] + " " + p[1]).join(" ") +
-           '" fill="none" stroke="' + css("--meta") + '" stroke-width="2" stroke-dasharray="5,4"/>';
-      pts.forEach(p => { g += '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="2.6" fill="' + css("--meta") + '"/>'; });
-    }
-
-    host.innerHTML = '<svg viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="Receita realizada por mês contra a meta">' + g + "</svg>";
-  }
-
-  (function textosReceita() {
-    if (!R || !R.meses || !R.meses.length) return;
-    if (D.tituloReceita) txt("t-receita", D.tituloReceita);
-    const cores = ["--accent", "--meta", "--exp", "--hist"];
-    el("leg-receita").innerHTML =
-      (R.barras || []).map((b, i) =>
-        '<span><i class="dot" style="background:var(' + cores[i % cores.length] + ')"></i>' +
-        esc(String(b.nome).replace(/\s*\(R\$\s*M\)\s*$/i, "")) + "</span>").join("") +
-      (R.meta && R.meta.length ? '<span><i class="dot linha"></i>meta</span>' : "");
-
-    const totais = R.total || [];
-    const metas = R.meta || [];
-    const iU = totais.length - 1;
-    let nota = "Valores em <strong>R$ milhões</strong>. ";
-    if (totais.length && metas.length) {
-      const at = metas[iU] ? totais[iU] / metas[iU] : 0;
-      const cor = at >= 1 ? "var(--pos)" : (at >= 0.9 ? "var(--warn)" : "var(--neg)");
-      nota += "Fechamento de <strong>" + esc(R.meses[iU]) + "</strong>: R$ " + br(totais[iU], 1) +
-              " M contra meta de R$ " + br(metas[iU], 1) + " M — " +
-              '<strong style="color:' + cor + '">' + pct(at) + "</strong> da meta. ";
-      const acima = totais.filter((t, i) => metas[i] && t >= metas[i]).length;
-      nota += acima + " de " + totais.length + " meses no ou acima do alvo. ";
-    }
-    nota += '<span style="opacity:.75">% embaixo de cada mês: realizado ÷ meta.</span>';
-    html("nota-receita", nota);
+    /* o que vem antes do primeiro ":" e o nome da conta - fica em destaque */
+    el("prospec").innerHTML = P.map(t => {
+      const s = String(t);
+      const i = s.indexOf(":");
+      const corpo = i > 0 && i < 60
+        ? "<b>" + esc(s.slice(0, i)) + "</b>" + esc(s.slice(i))
+        : esc(s);
+      return '<div class="prospec-item"><i></i><p>' + corpo + "</p></div>";
+    }).join("");
   })();
 
-  /* ---------------- clientes em negociacao ---------------- */
-  (function clientes() {
-    const C = D.clientes || [];
-    if (D.tituloClientes) txt("t-clientes", D.tituloClientes);
-    txt("neg-total", D.totalValor || "—");
-    txt("neg-label", D.totalLabel || (C.length + " contas"));
-    txt("sub-clientes", C.length + (C.length === 1 ? " conta" : " contas"));
+  /* ---------------- negocio perdido ---------------- */
+  (function () {
+    if (!D.perdido) return;
+    el("perdido").hidden = false;
+    /* tira o rotulo repetido do inicio ("NEGOCIO PERDIDO (1):") */
+    txt("perdido-t", String(D.perdido).replace(/^\s*neg[óo]cio\s+perdido\s*(\(\d+\))?\s*:?\s*/i, ""));
+  })();
 
-    if (!C.length) {
-      html("cards", '<div class="empty">O slide não trouxe clientes em negociação.</div>');
+  /* ---------------- contas por grupo ---------------- */
+  (function () {
+    const G = D.grupos || [];
+    if (D.tituloClientes) txt("t-clientes", D.tituloClientes);
+    txt("sub-clientes", D.subtituloClientes || "");
+
+    if (!G.length) {
+      html("grupos", '<div class="empty">O slide não trouxe contas nesta semana.</div>');
       return;
     }
 
-    const totalBase = D.totalNum || soma(C.map(c => c.valor || 0)) || 1;
-    el("cards").innerHTML = C.map(c => {
-      const f = slug(c.fase);
-      const share = (c.valor || 0) / totalBase;
-      const partes = [];
-      if (c.previsao) partes.push("<em>previsão</em> " + esc(c.previsao));
-      if (c.responsavel) partes.push("<em>resp.</em> " + esc(c.responsavel));
-      return '<div class="cli-card ' + f + '">' +
-        '<div class="sigla">' + esc(c.sigla || (c.nome || "").slice(0, 2).toUpperCase()) + "</div>" +
-        '<div class="cli-top">' +
-          '<span class="cli-nome">' + esc(c.nome) + "</span>" +
-          (c.fase ? '<span class="pill ' + f + '">' + esc(cap(c.fase)) + "</span>" : "") +
+    /* cor por grupo: fechado = verde, negociacao = azul, o resto = laranja */
+    const corDe = nome => {
+      const k = slug(nome);
+      if (k.indexOf("fechad") >= 0 || k.indexOf("iniciad") >= 0) return "--exp";
+      if (k.indexOf("negoc") >= 0) return "--accent";
+      return "--meta";
+    };
+    const fundo = cor => cor === "--exp" ? "rgba(34,197,94,.16)"
+                       : cor === "--accent" ? "rgba(67,127,239,.16)"
+                       : "rgba(241,134,10,.16)";
+
+    /* densidade: com muitas contas a linha de acao precisa encolher */
+    const totalContas = G.reduce((n, g) => n + ((g.contas || []).length), 0);
+    const cx = el("grupos");
+    cx.className = "grupos" + (totalContas > 14 ? " muito-denso" : totalContas > 9 ? " denso" : "");
+
+    cx.innerHTML = G.map(g => {
+      const cor = corDe(g.nome);
+      const contas = g.contas || [];
+      const meta = c => [c.previsao, c.resp].filter(Boolean).map(esc).join(" · ");
+      return '<div class="grupo" style="flex:' + Math.max(contas.length, 1) + ' 1 0">' +
+        '<div class="g-cab">' +
+          '<div class="g-nome" style="color:var(' + cor + ')">' +
+            '<i class="dot" style="background:var(' + cor + ')"></i>' + esc(g.nome) + "</div>" +
+          '<div class="g-qtd">' + esc(g.qtd || (contas.length + " contas")) + "</div>" +
+          '<div class="g-tot">' + esc(g.totalTxt || "") + "</div>" +
         "</div>" +
-        '<div class="cli-val">' + esc(c.valorTxt || "") +
-          (partes.length ? "<small>" + partes.join(" · ") + "</small>" : "") +
-        "</div>" +
-        '<div class="cli-acao">' + esc(c.acao || "") + "</div>" +
-        (c.valor ? '<div class="cli-peso">' +
-            '<div class="b"><i style="width:' + (share * 100).toFixed(1) + '%"></i></div>' +
-            '<div class="p">' + pct(share, 1) + " do pipeline</div>" +
-          "</div>" : "") +
+        contas.map(c =>
+          '<div class="conta">' +
+            '<div class="c-top">' +
+              '<span class="c-nome">' + esc(c.nome) + "</span>" +
+              (c.fase ? '<span class="pill" style="color:var(' + cor + ');background:' + fundo(cor) + '">' +
+                        esc(c.fase) + "</span>" : "") +
+            "</div>" +
+            '<div class="c-val">' + esc(c.valorTxt || "") + "</div>" +
+            '<div class="c-acao">' + esc(c.acao || "") + "</div>" +
+            '<div class="c-meta">' + meta(c) + "</div>" +
+          "</div>").join("") +
       "</div>";
     }).join("");
 
-    /* leitura rapida: quanto do pipeline esta em fechamento */
-    const totalNum = D.totalNum || soma(C.map(c => c.valor || 0));
-    const fech = C.filter(c => slug(c.fase) === "fechamento");
-    const vFech = soma(fech.map(c => c.valor || 0));
-    let nota = "";
-    if (totalNum && fech.length) {
-      nota = "<strong>" + fech.length + (fech.length === 1 ? " conta" : " contas") + " em fechamento</strong> somam R$ " +
-             br(vFech, 0) + " — <strong>" + pct(vFech / totalNum) + "</strong> do pipeline ativo.";
-    } else if (totalNum) {
-      nota = "Nenhuma conta em fechamento nesta semana; todo o pipeline ativo está em fases anteriores.";
+    if (D.totalValor) {
+      el("rodape").hidden = false;
+      txt("rod-l", D.totalLabel || "Total geral");
+      txt("rod-v", D.totalValor);
     }
-    html("nota-clientes", nota);
   })();
-
-  /* ---------------- redesenho ---------------- */
-  grafReceita();
-  let t;
-  addEventListener("resize", function () { clearTimeout(t); t = setTimeout(grafReceita, 120); });
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(grafReceita);
 };
 </script>
 
