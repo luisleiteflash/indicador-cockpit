@@ -489,24 +489,33 @@ window.__COCKPIT_INIT = function () {
     const maxV = Math.max.apply(null, F.vals) || 1;
     txt("sub-fases", br(total, 0) + " oportunidades no funil");
 
-    el("funil").innerHTML = F.cats.map((c, i) => {
+    /* O PowerPoint desenha o grafico de baixo para cima: Fechamento no topo e
+       Prospeccao embaixo. O painel segue a mesma ordem para a TV e o slide
+       ficarem iguais. A conversao continua sendo a da fase anterior do funil,
+       que nessa ordem e a linha de BAIXO.                                   */
+    const linhas = F.cats.map((c, i) => {
       const v = F.vals[i] || 0;
       const ant = i ? (F.vals[i - 1] || 0) : 0;
-      const cv = i && ant ? "↓ " + pct(v / ant) : "—";
-      const rot = i ? "conversão vinda da fase anterior" : "topo do funil";
-      return '<div class="fase">' +
-        '<div class="fase-n">' + esc(c) + "</div>" +
-        '<div class="fase-track"><i style="width:' + (v / maxV * 100).toFixed(1) + '%"></i>' +
-          "<b>" + br(v, 0) + "</b></div>" +
-        '<div class="fase-cv" title="' + rot + '">' + cv + "</div>" +
-      "</div>";
-    }).join("");
+      return {
+        nome: c, valor: v,
+        cv: i && ant ? "↓ " + pct(v / ant) : "—",
+        rot: i ? "conversão vinda de " + F.cats[i - 1] : "topo do funil"
+      };
+    }).reverse();
+
+    el("funil").innerHTML = linhas.map(l =>
+      '<div class="fase">' +
+        '<div class="fase-n">' + esc(l.nome) + "</div>" +
+        '<div class="fase-track"><i style="width:' + (l.valor / maxV * 100).toFixed(1) + '%"></i>' +
+          "<b>" + br(l.valor, 0) + "</b></div>" +
+        '<div class="fase-cv" title="' + esc(l.rot) + '">' + l.cv + "</div>" +
+      "</div>").join("");
 
     const ini = F.vals[0] || 0, fim = F.vals[F.vals.length - 1] || 0;
     html("nota-fases",
       "Do topo ao fechamento: <strong>" + br(ini, 0) + " → " + br(fim, 0) + "</strong> " +
       "(<strong>" + pct(ini ? fim / ini : 0, 1) + "</strong> fim a fim). " +
-      '<span style="opacity:.75">À direita de cada fase, a conversão vinda da fase anterior.</span>');
+      '<span style="opacity:.75">Mesma ordem do slide. À direita de cada fase, a conversão vinda da fase de baixo.</span>');
   })();
 
   /* ---------------- novas prospeccoes ---------------- */
